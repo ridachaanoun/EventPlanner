@@ -17,10 +17,20 @@
                     </x-nav-link>
 
                         @if (Auth::user()->usertyp == "admin")
+                        
                             <x-nav-link href="events" :active="request()->routeIs('admin.events')">
                                 {{ __('events') }}
                             </x-nav-link>
                         @endif
+                        <!-- Assuming this part is inside your nav.blade.php -->
+
+                        @if (Auth::user()->usertyp == "user")
+                            <x-nav-link href="user-events" :active="request()->routeIs('user-events')">
+                                {{ __('Events') }}
+                            </x-nav-link>
+                        @endif
+
+
                 </div>
             </div>
 

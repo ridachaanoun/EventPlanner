@@ -38,6 +38,17 @@
                         </div>
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Comment</button>
                     </form>
+                    <!-- Show registered users -->
+                    @if ($event->registrations->isNotEmpty())
+                        <h4 class="font-semibold text-lg text-gray-800 leading-tight mb-2">Registered Users</h4>
+                        <ul>
+                            @foreach ($event->registrations as $registration)
+                                <li>{{ $registration->user->name }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+
+
                 </div>
             </div>
         </div>

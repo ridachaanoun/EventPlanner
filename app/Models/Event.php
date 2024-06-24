@@ -20,6 +20,14 @@ class Event extends Model
         // Assuming you have a "comments" table in your database
         return $this->hasMany('App\Models\Comment', 'event_id');
     }
+
+
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
+    }
+
+
 }
 
 

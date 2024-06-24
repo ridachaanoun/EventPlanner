@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\UserEventController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -11,10 +12,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,9 +36,6 @@ Route::post('/events', [EventController::class, 'store'])->name('events.store');
 
 
 
-
-
-
 Route::prefix('admin')->group(function () {
     Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
     Route::post('/events', [EventController::class, 'store'])->name('admin.events.store');
@@ -51,8 +45,16 @@ Route::prefix('admin')->group(function () {
     Route::post('/events/{event}/register', [EventController::class, 'register'])->name('admin.events.register');
     Route::get('/events/{event}', [EventController::class, 'show'])->name('admin.events.show'); // Add this line
     Route::post('/events/{event}/add-comment', [EventController::class, 'addComment'])->name('admin.events.add-comment');
+    Route::post('/events/{event}/rate', [EventController::class, 'storeRating'])->name('events.rate');
 
 });
+
+Route::middleware(['auth', 'userMiddleware'])->group(function () {
+    Route::get('/user-events', [UserEventController::class, 'index'])->name('user-events');
+    Route::get('/user-events/{event}', [UserEventController::class, 'show'])->name('user.events.show');
+});
+
+
 
 
 
