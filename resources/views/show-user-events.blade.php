@@ -1,10 +1,16 @@
+<!-- resources/views/user-event-show.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Event Details') }}
         </h2>
     </x-slot>
-
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong class="font-bold">Success!</strong>
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -38,25 +44,18 @@
                         </div>
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">Add Comment</button>
                     </form>
-                    <!-- Display registered users -->
-                    @if ($event->registrations->isNotEmpty())
-                    <h4 class="font-semibold text-lg text-gray-800 leading-tight mt-4">Registered Users</h4>
-                    <ul>
-                        @foreach ($event->registrations as $registration)
-                            <li>
-                                {{ $registration->user->name }}
-                                <form action="{{ route('admin.events.delete-registration', ['event' => $event, 'registration' => $registration]) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
-                                </form>
-                            </li>
-                        @endforeach
-                    </ul>
-                    @else
-                        <p>No registered users for this event.</p>
-@endif
 
+                    <!-- Step 4: Show Registered Users -->
+                    @if ($event->registrations && !$event->registrations->isEmpty())
+                        <h4 class="font-semibold text-lg text-gray-800 leading-tight mb-2">Registered Users</h4>
+                        <ul>
+                            @foreach ($event->registrations as $registration)
+                                <li>{{ $registration->user->name }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>No registered users yet.</p>
+                    @endif
 
                 </div>
             </div>

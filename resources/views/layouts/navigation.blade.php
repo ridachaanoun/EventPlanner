@@ -12,12 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.dashboard')" :active="Auth :: user()->usertyp == 'admin' ? request()->routeIs('admin.dashboard') : request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
 
                         @if (Auth::user()->usertyp == "admin")
-                        
+                            <x-nav-link :href="route('admin.dashboard')" :active="Auth :: user()->usertyp == 'admin' ? request()->routeIs('admin.dashboard') : request()->routeIs('dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
                             <x-nav-link href="events" :active="request()->routeIs('admin.events')">
                                 {{ __('events') }}
                             </x-nav-link>
@@ -25,6 +24,9 @@
                         <!-- Assuming this part is inside your nav.blade.php -->
 
                         @if (Auth::user()->usertyp == "user")
+                            <x-nav-link :href="route('dashboard')" :active="Auth :: user()->usertyp == 'admin' ? request()->routeIs('admin.dashboard') : request()->routeIs('dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
                             <x-nav-link href="user-events" :active="request()->routeIs('user-events')">
                                 {{ __('Events') }}
                             </x-nav-link>

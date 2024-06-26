@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-        'title', 'description', 'date', 'location',
+        'title', 'description', 'date', 'location','user_id',
     ];
 
     protected $casts = [
@@ -25,6 +25,7 @@ class Event extends Model
     public function registrations()
     {
         return $this->hasMany(Registration::class);
+        
     }
 
 

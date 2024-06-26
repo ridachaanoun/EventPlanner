@@ -12,7 +12,7 @@
                     <h3 class="font-semibold text-lg text-gray-800 leading-tight mb-4">
                         {{ __('Create Event') }}
                     </h3>
-                    <form method="POST" action="{{ route('admin.events.store') }}">
+                    <form method="POST" action="{{ route('events.store') }}">
                         @csrf
                         <div class="mb-4">
                             <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>

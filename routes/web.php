@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\User\UserController;
+// use App\Http\Controllers\User\UserEventController;
 use App\Http\Controllers\UserEventController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\ProfileController;
@@ -24,6 +25,13 @@ require __DIR__.'/auth.php';
 //user routes
 Route::middleware(['auth', 'userMiddleware'])->group(function(){
     Route::get('dashboard', [UserController::class,'index'])->name('dashboard');
+    Route::get('/user-events', [UserEventController::class, 'index'])->name('user-events');
+    Route::get('/user-events/{event}', [UserEventController::class, 'show'])->name('user.events.show');
+    Route::get('/user-events/{event}/edit', [UserEventController::class, 'edit'])->name('user.events.edit');
+    Route::put('/user-events/{event}', [UserEventController::class, 'update'])->name('user.events.update');
+    Route::delete('/user-events/{event}', [UserEventController::class, 'destroy'])->name('user.events.destroy');
+    Route::post('/user-events/{event}/register', [UserEventController::class, 'register'])->name('user.events.register');
+
 });
 // admin routes
 Route::middleware(['auth', 'adminMiddleware'])->group(function(){
@@ -46,6 +54,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/events/{event}', [EventController::class, 'show'])->name('admin.events.show'); // Add this line
     Route::post('/events/{event}/add-comment', [EventController::class, 'addComment'])->name('admin.events.add-comment');
     Route::post('/events/{event}/rate', [EventController::class, 'storeRating'])->name('events.rate');
+    Route::delete('/events/{event}/registrations/{registration}', [EventController::class, 'deleteRegistration'])->name('admin.events.delete-registration');
 
 });
 

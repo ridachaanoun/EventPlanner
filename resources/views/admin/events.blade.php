@@ -35,6 +35,9 @@
                                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Actions
                                 </th>
+                                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Rating
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,7 +67,24 @@
                                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Register</button>
                                         </form>
                                     </td>
-                                    
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <div class="flex items-center">
+                                            <span class="text-gray-600 mr-2">Rating:</span>
+                                            <div class="flex">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $event->rating)
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 fill-current">
+                                                            <path d="M12 1l2.5 6.5h6L15.5 10l2.5 6.5L12 14l-6 3.5L7.5 10 2.5 7.5h6z"/>
+                                                        </svg>
+                                                    @else
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300 fill-current">
+                                                            <path d="M12 1l2.5 6.5h6L15.5 10l2.5 6.5L12 14l-6 3.5L7.5 10 2.5 7.5h6z"/>
+                                                        </svg>
+                                                    @endif
+                                                @endfor
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

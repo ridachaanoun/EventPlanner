@@ -26,13 +26,14 @@ class EventController extends Controller
         ]);
 
         Event::create([
+            'user_id' => auth()->user()->id, 
             'title' => $request->title,
             'description' => $request->description,
             'date' => $request->date,
             'location' => $request->location,
         ]);
 
-        return redirect()->route('admin.events.index')->with('success', 'Event created successfully!');
+        return redirect()->route('admin.dashboard')->with('success', 'Event created successfully!');
     }
 
     public function edit(Event $event)
@@ -109,6 +110,21 @@ class EventController extends Controller
 
         return redirect()->route('admin.events.show', $event)->with('success', 'Registered for event successfully!');
     }
+
+    public function deleteRegistration(Event $event, Registration $registration)
+    {
+
+        // Assuming $registration is fetched correctly and belongs to $event
+        $registration->delete();
+        
+        return redirect()->back()->with('success', 'Registration deleted successfully.');
+
+    }
+
+
+
+
+
      /**
      * Store the rating for an event.
      *
